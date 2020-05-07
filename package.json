@@ -1,0 +1,24 @@
+{
+  "name": "asteroids",
+  "version": "1.0.0",
+  "description": "asteroid game for my portfolio",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clear": "rm -r dist/ && echo $(tput setaf 2)REMOVED DIST DIRECTORY$(tput sgr 0) || echo $(tput setaf 1)DIRECTORY DOES NOT EXIST$(tput sgr 0)",
+    "format": "prettier --check '*.**' --write && echo $(tput setaf 2)CODE FORMATED$(tput sgr 0)",
+    "dev": "live-server src/",
+    "build": "npm run clear; npm run format; parcel src/index.html",
+    "prod": "live-server dist/"
+  },
+  "keywords": [
+    "game"
+  ],
+  "author": "Tomasz Turek",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.1",
+    "parcel-bundler": "^1.12.4",
+    "prettier": "^2.0.5"
+  }
+}
