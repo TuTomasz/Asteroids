@@ -17,6 +17,8 @@
   "author": "Tomasz Turek",
   "license": "MIT",
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
     "live-server": "^1.2.1",
     "parcel-bundler": "^1.12.4",
     "prettier": "^2.0.5"
