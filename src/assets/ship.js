@@ -30,6 +30,7 @@ export default class Ship {
       x: 0,
       y: 0,
     };
+    this.railgunOn = false;
   }
 
   render(ctx, ship) {
@@ -42,6 +43,32 @@ export default class Ship {
         (ship.ACCELERATION * Math.cos(ship.angle)) / this.FRAME_RATE;
       ship.thrust.y -=
         (ship.ACCELERATION * Math.sin(ship.angle)) / this.FRAME_RATE;
+
+      // render thruster
+
+      ctx.fillStyle = "Blue";
+      ctx.strokeStyle = "white";
+      ctx.lineWidth = this.size / 10;
+      ctx.beginPath();
+      ctx.moveTo(
+        ship.x -
+          ship.radius * ((2 / 3) * Math.cos(ship.angle) + Math.sin(ship.angle)),
+        ship.y +
+          ship.radius * ((2 / 3) * Math.sin(ship.angle) - Math.cos(ship.angle))
+      );
+      ctx.lineTo(
+        ship.x - ship.radius * (7 / 3) * Math.cos(ship.angle),
+        ship.y + ship.radius * (7 / 3) * Math.sin(ship.angle)
+      );
+      ctx.lineTo(
+        ship.x -
+          ship.radius * ((2 / 3) * Math.cos(ship.angle) - Math.sin(ship.angle)),
+        ship.y +
+          ship.radius * ((2 / 3) * Math.sin(ship.angle) + Math.cos(ship.angle))
+      );
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
     } else {
       ship.thrust.x -= (ship.FRICTION * ship.thrust.x) / this.FRAME_RATE;
       ship.thrust.y -= (ship.FRICTION * ship.thrust.y) / this.FRAME_RATE;
@@ -100,6 +127,10 @@ export default class Ship {
         case 38:
           ship.driveOn = true;
           break;
+        case 32:
+          this.railgunOn = true;
+          console.log(this.railgunOn);
+          break;
         case 37:
           ship.rotation = ((this.TURN_RATE / 180) * Math.PI) / this.FRAME_RATE;
           break;
@@ -113,6 +144,10 @@ export default class Ship {
       switch (event.keyCode) {
         case 38:
           ship.driveOn = false;
+          break;
+        case 32:
+          this.railgunOn = false;
+          console.log(this.railgunOn);
           break;
         case 37:
           ship.rotation = 0;
