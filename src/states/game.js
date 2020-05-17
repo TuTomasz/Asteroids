@@ -1,24 +1,26 @@
 import Ship from "../assets/ship";
+import Asteroids from "../assets/asteroids";
+import Effects from "../assets/effects";
 
-// const Ship = require("./assets/ship");
+import { FRAME_RATE } from "../assets/constants";
+
+//import { Particles } from "../assets/particles";
 
 export default function startGame(canvas, ctx) {
-  // Presets
-  const FRAME_RATE = 60;
-  const SHIP_SIZE = 20; //pixels
-  const TURN_RATE = 360; // radians per frame
-  const ACCELERATION = 3; // px/frame
-  const FRICTION = 1;
+  //State
+  let colision = false;
 
-  // Initialize Assets
-  let ship = new Ship(
-    canvas,
-    SHIP_SIZE,
-    ACCELERATION,
-    FRICTION,
-    TURN_RATE,
-    FRAME_RATE
-  );
+  // Initialize Asteroid Filed
+  let asteroids = new Asteroids(canvas);
+  asteroids.createAsteroidField();
+
+  // Initialize Ship
+  let ship = new Ship(canvas);
+  let asteroid_field = [];
+
+  // Initialize Effects
+  let effects = new Effects(canvas);
+  //let effects = new Particles(canvas);
 
   /**
    * main game loop
@@ -30,6 +32,20 @@ export default function startGame(canvas, ctx) {
 
     //draw ship
     ship.render(ctx, ship);
+
+    //draw asteroids
+    asteroids.render(ctx);
+
+    //detect colisions
+    asteroid_field = asteroids.getAsteriodField();
+    colision = ship.detectColisions(ctx, ship, asteroid_field);
+
+    if (colision) {
+      ship.exploding = true;
+      effects.shipExplosion(ctx, ship);
+      ship = ship.createNewShip(canvas, ship);
+      asteroids.createAsteroidField();
+    }
   };
 
   // Input handlers
