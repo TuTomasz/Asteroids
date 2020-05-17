@@ -3,6 +3,7 @@ import {
   ASTEROID_NUM,
   ASTEROID_SIZE,
   ASTERIOD_BOUNDING_BOX,
+  BOUNDING_BOX_COLOR,
 } from "./constants";
 
 export default class Asteroids {
@@ -89,7 +90,7 @@ export default class Asteroids {
       ctx.stroke();
 
       if (ASTERIOD_BOUNDING_BOX) {
-        ctx.strokeStyle = "green";
+        ctx.strokeStyle = BOUNDING_BOX_COLOR;
         ctx.beginPath();
         ctx.arc(a.x, a.y, a.radius, 0, Math.PI * 2);
         ctx.stroke();
