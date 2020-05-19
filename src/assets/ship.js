@@ -7,7 +7,9 @@ import {
   SHIP_BOUNDING_BOX,
   SHIP_EXPLODE_TIME,
   BOUNDING_BOX_COLOR,
+  BULLET_MAX,
 } from "./constants";
+import Bullet from "./bullet";
 
 /**
  * Ship class contains ship parameters and state
@@ -15,6 +17,7 @@ import {
 export default class Ship {
   constructor(canvas) {
     //world constants
+    this.canvas = canvas;
     this.width = canvas.width;
     this.height = canvas.height;
     this.FRAME_RATE = FRAME_RATE;
@@ -35,8 +38,9 @@ export default class Ship {
       y: 0,
     };
     this.explodeTime = SHIP_EXPLODE_TIME * FRAME_RATE;
-    this.railgunOn = false;
     this.exploding = false;
+    this.railgunLoaded = true;
+    this.bullets = [];
   }
   createNewShip(canvas, oldShip) {
     if (oldShip.explodeTime < 0) {
@@ -60,7 +64,19 @@ export default class Ship {
       }
     }
   }
+  shootRailgun(ship) {
+    if (this.railgunLoaded == true && this.bullets.length < BULLET_MAX) {
+      let x = ship.x + (4 / 3) * ship.radius * Math.cos(ship.angle);
+      let y = ship.y - (4 / 3) * ship.radius * Math.sin(ship.angle);
 
+      this.bullets.unshift(new Bullet(this.canvas, x, y, ship.angle));
+      console.log("shooting");
+    }
+  }
+  /**
+   * Render function for Ship
+   * @param  {CanvasRenderingContext2D} ctxs
+   */
   render(ctx, ship) {
     if (SHIP_BOUNDING_BOX) {
       ctx.strokeStyle = BOUNDING_BOX_COLOR;
@@ -156,13 +172,18 @@ export default class Ship {
       ctx.fillRect(ship.x - 1, ship.y - 2, 2, 2);
     }
 
-    // move ship
+    //render bullets
+    for (let bullet of ship.bullets) {
+      if (bullet.lifespan > 0) {
+        bullet.render(ctx, bullet);
+      } else {
+        ship.bullets.pop();
+      }
+    }
 
+    // move ship
     if (this.explodeTime > 0) {
       this.explodeTime--;
-      if (this.explodeTime == 0) {
-        console.log("exploded");
-      }
     } else {
       ship.x = ship.x + ship.thrust.x;
       ship.y = ship.y + ship.thrust.y;
@@ -187,15 +208,15 @@ export default class Ship {
    * @param  {KeyboardEvent} event
    * @param  {object} ship
    */
-  inputHandler(event, ship) {
+  inputHandler(event, ship, ctx) {
     if (event.type == "keydown") {
       switch (event.keyCode) {
         case 38:
           ship.driveOn = true;
           break;
         case 32:
-          this.railgunOn = true;
-          console.log(this.railgunOn);
+          this.shootRailgun(ship);
+          this.railgunLoaded = false;
           break;
         case 37:
           ship.rotation = ((this.TURN_RATE / 180) * Math.PI) / this.FRAME_RATE;
@@ -212,8 +233,7 @@ export default class Ship {
           ship.driveOn = false;
           break;
         case 32:
-          this.railgunOn = false;
-          console.log(this.railgunOn);
+          this.railgunLoaded = true;
           break;
         case 37:
           ship.rotation = 0;

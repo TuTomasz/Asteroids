@@ -17,7 +17,15 @@ module.exports = {
   ACCELERATION: 3, // rate of acceleration in pixels per frame
   FRICTION: 2, //rate of decelleration in pixels per frame
   TURN_RATE: 360, // turn rate in radians per frame
-  SHIP_EXPLODE_TIME: 1, // in seconds
+  SHIP_EXPLODE_TIME: 0.4, // in seconds
+
+  /**
+   * Projectiles
+   */
+  BULLET_MAX: 10, // maximum projectiles on screen
+  BULLET_SPEED: 5, // speed in px/s
+  BULLET_SIZE: 1.5, // px
+  BULLET_DURATION: 60, // exist for 60 frames
 
   /**
    * Runtime options

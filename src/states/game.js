@@ -26,14 +26,14 @@ export default function startGame(canvas, ctx) {
    * main game loop
    */
   let update = () => {
-    // draw space
+    // render space
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    //draw ship
+    //render ship
     ship.render(ctx, ship);
 
-    //draw asteroids
+    //render asteroids
     asteroids.render(ctx);
 
     //detect colisions
