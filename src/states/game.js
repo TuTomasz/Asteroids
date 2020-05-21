@@ -8,7 +8,9 @@ import { FRAME_RATE } from "../assets/constants";
 
 export default function startGame(canvas, ctx) {
   //State
-  let colision = false;
+  let WinCondition = false;
+  let shipColision = false;
+  let bulletCollision = { collison: false, asteroid: null };
 
   // Initialize Asteroid Filed
   let asteroids = new Asteroids(canvas);
@@ -17,6 +19,7 @@ export default function startGame(canvas, ctx) {
   // Initialize Ship
   let ship = new Ship(canvas);
   let asteroid_field = [];
+  let shots_fired = [];
 
   // Initialize Effects
   let effects = new Effects(canvas);
@@ -38,13 +41,35 @@ export default function startGame(canvas, ctx) {
 
     //detect colisions
     asteroid_field = asteroids.getAsteriodField();
-    colision = ship.detectColisions(ctx, ship, asteroid_field);
+    shots_fired = ship.getShotsFired();
 
-    if (colision) {
+    //ship/asteroid collisions
+    shipColision = ship.detectColisions(ctx, ship, asteroid_field);
+    if (shipColision) {
       ship.exploding = true;
       effects.shipExplosion(ctx, ship);
       ship = ship.createNewShip(canvas, ship);
       asteroids.createAsteroidField();
+    }
+    //bullet/asteroid collisions
+    for (let bullet of shots_fired) {
+      bulletCollision = bullet.detectColisions(ctx, bullet, asteroid_field);
+      console.log(bulletCollision);
+      if (bulletCollision) {
+        shots_fired.pop();
+        ship.setShotsFired(shots_fired);
+        asteroid_field.splice(asteroid_field.indexOf(bulletCollision.asteroid));
+      }
+      if (asteroid_field.length == 0) {
+        WinCondition = true;
+      }
+    }
+
+    // level win condition
+    if (WinCondition) {
+      WinCondition = false;
+      console.log("you won");
+      asteroids.createAsteroidField(5);
     }
   };
 

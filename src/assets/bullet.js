@@ -17,6 +17,22 @@ export default class Bullet {
     this.lifespan = BULLET_DURATION;
   }
 
+  distanceBetween(x1, y1, x2, y2) {
+    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+  }
+  detectColisions(ctx, bullet, asteroids) {
+    for (let i = 0; i < asteroids.length; i++) {
+      let asteroid = asteroids[i];
+
+      if (
+        this.distanceBetween(bullet.x, bullet.y, asteroid.x, asteroid.y) <
+        asteroid.radius
+      ) {
+        return { bullet: bullet, asteroid: asteroid };
+      }
+    }
+  }
+
   /**
    * Render function for Bullets
    * @param  {CanvasRenderingContext2D} ctxs

@@ -70,8 +70,13 @@ export default class Ship {
       let y = ship.y - (4 / 3) * ship.radius * Math.sin(ship.angle);
 
       this.bullets.unshift(new Bullet(this.canvas, x, y, ship.angle));
-      console.log("shooting");
     }
+  }
+  getShotsFired() {
+    return this.bullets;
+  }
+  setShotsFired(bullets) {
+    this.bullets = bullets;
   }
   /**
    * Render function for Ship
