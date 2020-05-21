@@ -36,10 +36,10 @@ export default class Asteroids {
   /**
    * Create Asteroid field
    */
-  createAsteroidField() {
+  createAsteroidField(num = ASTEROID_NUM) {
     this.asteroid_field = [];
     let x, y;
-    for (let i = 0; i < this.ASTEROID_NUM; i++) {
+    for (let i = 0; i < num; i++) {
       do {
         x = Math.floor(Math.random() * this.canvas.width);
         y = Math.floor(Math.random() * this.canvas.height);
