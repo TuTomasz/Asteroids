@@ -7,11 +7,12 @@ import {
 } from "./constants";
 
 export default class Asteroid {
-  constructor(x, y) {
+  constructor(x, y, size = ASTEROID_SIZE) {
     //Astroid Constants
     this.ASTEROID_SPEED = ASTEROID_SPEED;
     this.ASTEROID_EDGES = ASTEROID_EDGES;
-    this.radius = ASTEROID_SIZE / 2;
+    this.size = size;
+    this.radius = this.size / 2;
     this.angle = Math.random() * Math.PI * 2;
     this.y = y;
     this.x = x;

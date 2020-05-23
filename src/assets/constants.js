@@ -6,8 +6,8 @@ module.exports = {
   ASTEROID_NUM: 3, //starting asteroid number
   ASTEROID_SPEED: 50, // asteroid speed
   ASTEROID_SIZE: 100, // size in pixels
-  ASTEROID_EDGES: 12, // arbitrary number of edges
-  ASTEROID_DISTORTION: 0.6, // distortion or jaggedness of asteroid
+  ASTEROID_EDGES: 10, // arbitrary number of edges
+  ASTEROID_DISTORTION: 0.5, // distortion or jaggedness of asteroid
 
   /**
    * Ship options

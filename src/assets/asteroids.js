@@ -57,6 +57,23 @@ export default class Asteroids {
       this.asteroid_field.push(asteroid);
     }
   }
+  splitAsteroid(a) {
+    if (a.size == 100) {
+      let one = new Asteroid(a.x, a.y, a.size / 2);
+      let two = new Asteroid(a.x, a.y, a.size / 2);
+      console.log(a.size);
+      this.asteroid_field.push(one);
+      this.asteroid_field.push(two);
+    } else if (a.size == 50) {
+      let one = new Asteroid(a.x, a.y, a.size / 2);
+      let two = new Asteroid(a.x, a.y, a.size / 2);
+      console.log(a.size);
+      this.asteroid_field.push(one);
+      this.asteroid_field.push(two);
+    } else if (a.size == 25) {
+      return;
+    }
+  }
 
   /**
    * Render function for Asteroids
