@@ -1,4 +1,6 @@
 module.exports = {
+  //loops
+  MENULOOP: undefined,
   /**
    * Asteroid options
    */
@@ -6,7 +8,7 @@ module.exports = {
   ASTEROID_NUM: 3, //starting asteroid number
   ASTEROID_SPEED: 50, // asteroid speed
   ASTEROID_SIZE: 100, // size in pixels
-  ASTEROID_EDGES: 10, // arbitrary number of edges
+  ASTEROID_EDGES: 12, // arbitrary number of edges
   ASTEROID_DISTORTION: 0.5, // distortion or jaggedness of asteroid
 
   /**
@@ -37,7 +39,7 @@ module.exports = {
    * Development options
    */
 
-  SHIP_BOUNDING_BOX: true, // Show ship collision box
-  ASTERIOD_BOUNDING_BOX: true, // Show Asteroid collision box
+  SHIP_BOUNDING_BOX: false, // Show ship collision box
+  ASTERIOD_BOUNDING_BOX: false, // Show Asteroid collision box
   BOUNDING_BOX_COLOR: "yellow", // Set collision box color
 };

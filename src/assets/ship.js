@@ -147,7 +147,7 @@ export default class Ship {
       ctx.fill();
       ctx.stroke();
 
-      ctx.fillStyle = "red";
+      ctx.fillStyle = "yellow";
       ctx.fillRect(ship.x - 1, ship.y - 2, 2, 2);
     } else {
       ship.thrust.x -= (ship.FRICTION * ship.thrust.x) / this.FRAME_RATE;
@@ -173,7 +173,7 @@ export default class Ship {
       ctx.closePath();
       ctx.stroke();
 
-      ctx.fillStyle = "red";
+      ctx.fillStyle = "yellow";
       ctx.fillRect(ship.x - 1, ship.y - 2, 2, 2);
     }
 
