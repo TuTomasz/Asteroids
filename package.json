@@ -1,6 +1,6 @@
 {
   "name": "asteroids",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "asteroid game for my portfolio",
   "main": "main.js",
   "scripts": {

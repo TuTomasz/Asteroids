@@ -1,6 +1,9 @@
 module.exports = {
-  //loops
-  MENULOOP: undefined,
+  /**
+   * Game options
+   */
+
+  START_LEVEL: 3,
   /**
    * Asteroid options
    */
@@ -28,6 +31,13 @@ module.exports = {
   BULLET_SPEED: 5, // speed in px/s
   BULLET_SIZE: 1.5, // px
   BULLET_DURATION: 60, // exist for 60 frames
+
+  /**
+   * Effects
+   */
+  PARTICLE_SPEED: 2,
+  PARTICLE_LIFESPAN: 100, // exist for 100 frames
+  MAX_PARTICLES: 20,
 
   /**
    * Runtime options

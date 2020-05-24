@@ -3,14 +3,14 @@ import Ship from "../assets/ship";
 import Asteroids from "../assets/asteroids";
 import Effects from "../assets/effects";
 
-import { FRAME_RATE } from "../assets/constants";
+import { FRAME_RATE, START_LEVEL } from "../assets/constants";
 
 //import { Particles } from "../assets/particles";
 
 export default function startGame(canvas, ctx) {
   //State
   let score = 0;
-  let level = 1;
+  let level = START_LEVEL;
   let lives = 3;
   let WinCondition = false;
   let shipColision = false;
@@ -71,6 +71,12 @@ export default function startGame(canvas, ctx) {
       if (bulletCollision) {
         ship.bullets.pop();
 
+        effects.bulletCollision(
+          ctx,
+          bulletCollision.bullet.x,
+          bulletCollision.bullet.y
+        );
+
         if (bulletCollision.asteroid.size == 100) {
           score += 100;
         } else if (bulletCollision.asteroid.size == 50) {
@@ -89,6 +95,10 @@ export default function startGame(canvas, ctx) {
         WinCondition = true;
       }
     }
+
+    // render active particles
+    effects.renderParticles(ctx, effects.particles);
+
     //ship/asteroid collisions
     if (shipColision) {
       ship.exploding = true;
