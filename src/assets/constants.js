@@ -48,7 +48,7 @@ module.exports = {
   /**
    * Development options
    */
-
+  VERSION: "1.0.2",
   SHIP_BOUNDING_BOX: false, // Show ship collision box
   ASTERIOD_BOUNDING_BOX: false, // Show Asteroid collision box
   BOUNDING_BOX_COLOR: "yellow", // Set collision box color

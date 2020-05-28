@@ -98,14 +98,17 @@ export default function startGame(canvas, ctx) {
 
     // render active particles
     effects.renderParticles(ctx, effects.particles);
+    effects.renderParticles(ctx, effects.shipParticles, "orange");
 
     //ship/asteroid collisions
     if (shipColision) {
       ship.exploding = true;
       effects.shipExplosion(ctx, ship);
-      ship = ship.createNewShip(canvas, ship);
-
+      effects.shipCollosion(ctx, ship.x, ship.y);
       lives -= 1;
+      if (lives != 0) {
+        ship = ship.createNewShip(canvas, ship);
+      }
     }
 
     if (WinCondition) {
@@ -115,11 +118,12 @@ export default function startGame(canvas, ctx) {
       asteroids.createAsteroidField(level);
     }
     if (lives == 0) {
-      clearInterval(gameloop);
       ctx.font = "60px Orbitron";
       ctx.fillStyle = "white";
       ctx.textAlign = "center";
       ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2);
+      clearInterval(gameloop);
+
       setTimeout(() => {
         menuState(canvas, ctx);
       }, 2000);
